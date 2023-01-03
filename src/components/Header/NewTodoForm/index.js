@@ -1,15 +1,17 @@
 import React from "react";
 import { Formik, Field, Form } from "formik";
 import validateSchema from "./validations";
-
+import { useTodo } from "../../../contexts/TodoContext";
 function NewTodoForm() {
+  const { addTodo } = useTodo();
   return (
     <Formik
       initialValues={{
-        Text: "",
+        text: "",
       }}
       onSubmit={(values, bag) => {
         console.log(values);
+        addTodo(values.text);
         bag.resetForm();
       }}
       validateSchema={validateSchema}
@@ -19,8 +21,8 @@ function NewTodoForm() {
           className="new-todo"
           placeholder="What needs to be done?"
           autoFocus
-          id="Text"
-          name="Text"
+          id="text"
+          name="text"
         />
       </Form>
     </Formik>

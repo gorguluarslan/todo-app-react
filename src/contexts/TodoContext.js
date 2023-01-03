@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const TodoContext = createContext();
 
@@ -9,15 +10,14 @@ export const TodoProvider = ({ children }) => {
       text: "Learn React",
       completed: true,
     },
-    {
-      id: 2,
-      text: "Learn JavaScript",
-      completed: false,
-    },
   ]);
+  const addTodo = (text) =>
+    setTodos((prev) => [...prev, { id: uuidv4(), completed: false, text }]);
+
   const values = {
     todos,
     setTodos,
+    addTodo,
   };
   return <TodoContext.Provider value={values}>{children}</TodoContext.Provider>;
 };
